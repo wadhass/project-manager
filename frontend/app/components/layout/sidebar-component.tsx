@@ -2,13 +2,11 @@ import { cn } from "@/lib/utils";
 import { useAuth } from "@/provider/auth-context";
 import type { Workspace } from "@/types";
 import {
-  CheckCircle2,
   ChevronsLeft,
   ChevronsRight,
   LayoutDashboard,
   ListCheck,
   LogOut,
-  Settings,
   Users,
   Wrench,
 } from "lucide-react";
@@ -44,18 +42,8 @@ export const SidebarComponent = ({
     },
     {
       title: "Members",
-      href: `/members`,
+      href: "/members",
       icon: Users,
-    },
-    {
-      title: "Achieved",
-      href: `/achieved`,
-      icon: CheckCircle2,
-    },
-    {
-      title: "Settings",
-      href: "/settings",
-      icon: Settings,
     },
   ];
 

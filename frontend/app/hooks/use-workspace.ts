@@ -19,13 +19,15 @@ export const useGetWorkspaceQuery = (workspaceId: string) => {
   return useQuery({
     queryKey: ["workspace", workspaceId],
     queryFn: async () => fetchData(`/workspaces/${workspaceId}/projects`),
+    enabled: Boolean(workspaceId),
   });
 };
 
-export const useGetWorkspaceStatsQuery = (workspaceId: string) => {
+export const useGetWorkspaceStatsQuery = (workspaceId?: string) => {
   return useQuery({
     queryKey: ["workspace", workspaceId, "stats"],
     queryFn: async () => fetchData(`/workspaces/${workspaceId}/stats`),
+    enabled: Boolean(workspaceId),
   });
 };
 
@@ -33,6 +35,7 @@ export const useGetWorkspaceDetailsQuery = (workspaceId: string) => {
   return useQuery({
     queryKey: ["workspace", workspaceId, "details"],
     queryFn: async () => fetchData(`/workspaces/${workspaceId}`),
+    enabled: Boolean(workspaceId),
   });
 };
 

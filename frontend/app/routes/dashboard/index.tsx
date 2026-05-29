@@ -19,20 +19,38 @@ const Dashboard = () => {
   const [searchParams] = useSearchParams();
   const workspaceId = searchParams.get("workspaceId");
 
-  const { data, isPending } = useGetWorkspaceStatsQuery(workspaceId!) as {
-    data: {
-      stats: StatsCardProps;
-      taskTrendsData: TaskTrendsData[];
-      projectStatusData: ProjectStatusData[];
-      taskPriorityData: TaskPriorityData[];
-      workspaceProductivityData: WorkspaceProductivityData[];
-      upcomingTasks: Task[];
-      recentProjects: Project[];
-    };
+  const { data, isPending } = useGetWorkspaceStatsQuery(workspaceId) as {
+    data:
+      | {
+          stats: StatsCardProps;
+          taskTrendsData: TaskTrendsData[];
+          projectStatusData: ProjectStatusData[];
+          taskPriorityData: TaskPriorityData[];
+          workspaceProductivityData: WorkspaceProductivityData[];
+          upcomingTasks: Task[];
+          recentProjects: Project[];
+        }
+      | undefined;
     isPending: boolean;
   };
 
-  if (isPending) {
+  if (!workspaceId) {
+    return (
+      <div className="space-y-8 2xl:space-y-12">
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-bold">Dashboard</h1>
+        </div>
+        <div className="rounded-lg border bg-card p-8 text-center">
+          <p className="text-lg font-medium">No workspace selected</p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Select a workspace from the header or sidebar to view your dashboard.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (isPending || !data) {
     return (
       <div>
         <Loader />
